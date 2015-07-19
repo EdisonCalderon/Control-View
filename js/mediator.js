@@ -30,24 +30,25 @@ function workingNow(){
 	});
 };
 
-function chekWorking(){
+function checkWorking(){
 	var name = $("#name").val();
 	for (var i = usersList.length - 1; i >= 0; i--) {
 		if(usersList[i].name == name){
-			$("#divLabored").append('<label class="col-md-4 control-label" for="Labored">Labored</label>'+
+			if($("#labored").val() == null){
+				$("#divLabored").append('<label class="col-md-4 control-label" for="Labored">Labored</label>'+
   				'<div class="col-md-4">' +
 			    '<textarea class="form-control" id="labored" name="Labored" required=""></textarea>' +
 			  	'</div>');
-
+			}
 			$("#SignIn").empty();
 			$("#SignIn").append("Sign out");
 			$("#SignIn").val(false);
 			return
 		}
 		else
-		{
-			if($("#SignIn").val() == "true"){
-				$("#divLabored").empty();
+		{				
+			if($("#SignIn").val() == "false"){	
+				$("#divLabored").empty();			
 				$("#SignIn").empty();
 				$("#SignIn").append("Sign in");
 				$("#SignIn").val(true);
@@ -71,7 +72,7 @@ $(document).ready(function(){
         	type : 'POST',
         	data : {
         		"name" : $("#name").val(),
-        		"pass" : $("#password").val(),
+        		"password" : $("#password").val(),
         		"labored" :$("#labored").val()
         	}
         };
