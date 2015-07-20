@@ -36,7 +36,7 @@
         <div class="form-group">
           <label class="col-sm-4 control-label" for="Name" >Name</label>  
           <div class="col-sm-5">
-            <input  type="text" placeholder="Name" class="form-control input-sm" required="" autofocus ng-model="newUser.name">
+            <input  type="text" placeholder="Name" class="form-control input-sm" ng-click="reset()" autofocus ng-model="newUser.name">
           </div>
         </div>
 
@@ -44,7 +44,7 @@
         <div class="form-group">
           <label class="col-sm-4 control-label" for="Password">Password</label>
           <div class="col-sm-5">
-            <input type="password" placeholder="Password" class="form-control input-sm" required="" ng-model="newUser.pass">
+            <input type="password" placeholder="Password" class="form-control input-sm" ng-click="reset()" ng-model="newUser.pass">
           </div>
         </div>
 

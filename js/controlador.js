@@ -37,7 +37,7 @@ app.controller("signUpController",function signUpController($scope){
     };
 });
 
-app.controller("passwordChangeController",function changePasswordController($scope){
+app.controller("passwordChangeController",function changePasswordController($scope){    
     $scope.message_title="";
     $scope.message_content="";
     $scope.user= {
@@ -47,6 +47,11 @@ app.controller("passwordChangeController",function changePasswordController($sco
         newPass: ""
     };
     $scope.changePass= function(){
+        console.log($scope.user.name);
+        console.log($scope.user.pass1);
+        console.log($scope.user.pass2);
+        console.log($scope.user.newPass);
+
         if($scope.user.name != ""  && $scope.user.pass1!="" && $scope.user.pass2!="" && $scope.user.newPass!=""){
             if($scope.user.pass1 === $scope.user.pass2){
                 var info = {
