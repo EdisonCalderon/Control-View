@@ -73,6 +73,7 @@ $(document).ready(function(){
         	data : {
         		"name" : $("#name").val(),
         		"password" : $("#password").val(),
+        		"date" : new Date(),
         		"labored" :$("#labored").val()
         	}
         };
