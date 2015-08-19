@@ -96,11 +96,11 @@ function queryServer (info, callback){
             callback(null, result);
          },   
          error: function(jqXHR, textStatus, error) {
-                var details = (jqXHR.responseText)? jQuery.parseJSON(JSON.stringify(jqXHR.responseText)) : "No connecion with the server"   
+                var details = (jqXHR.responseText != null )? jQuery.parseJSON(jqXHR.responseText) : {error : "No connection with the server"};
                 error={
                     jqXHR : jqXHR, 
                     textStatus : textStatus, 
-                    details : details   
+                    details : details.error 
                 };
                 callback(error, null);
          }

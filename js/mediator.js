@@ -1,4 +1,4 @@
-	
+		
 function begin (){
 	workingNow();
 	setInterval(workingNow, 3000);
@@ -55,7 +55,7 @@ function checkWorking(){
 			}
 		}
 	}
-}
+};
 
 $(document).ready(function(){
 	 $("#SignIn").click(function(){
@@ -103,16 +103,16 @@ function queryServer (info, callback){
 			callback(null, result);
 		 },   
          error: function(jqXHR, textStatus, error) {
-         		var details = (jqXHR.responseText)? jQuery.parseJSON(JSON.stringify(jqXHR.responseText)) : "No connecion with the server"	
+         		var details = (jqXHR.responseText != null )? jQuery.parseJSON(jqXHR.responseText) : {error : "No connection with the server"};	
          		error={
          			jqXHR : jqXHR, 
          			textStatus : textStatus, 
-         			details : details	
+         			details : details.error	
          		};
 				callback(error, null);
          }
     });
-}
+};
 
 function showMessage(message){
 	$("#debug").empty();
@@ -125,12 +125,12 @@ function showMessage(message){
 	}
 	clear();
 
-} 
+};
 
 function showError(error){
 	$("#debug").empty();
 	$("#debug").append('<br><legend>ERROR </legend><br>' + error);
-}
+};
 
 function clear(){
 	$("#name").val("");
@@ -139,5 +139,5 @@ function clear(){
 	$("#SignIn").empty();
 	$("#SignIn").append("Sign in");
 	$("#SignIn").val(true);
-}
+};
 
