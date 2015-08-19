@@ -13,7 +13,7 @@ function workingNow(){
 
 	queryServer(info, function(error, users){
 		if(error){
-			showError(error);
+			showError(error.details);
 		}
 		else 
 		{	
@@ -69,16 +69,17 @@ $(document).ready(function(){
 
         var info = {
         	ruta : ruta,
-        	type : 'POST',
+        	type : 'POST',        	
         	data : {
         		"name" : $("#name").val(),
         		"password" : $("#password").val(),
+        		"date" : new Date(),
         		"labored" :$("#labored").val()
         	}
         };
 		queryServer(info, function(error, result){
 			if(error){
-				showError(error);
+				showError(error.details);
 			}			
 			else
 			{
@@ -98,15 +99,16 @@ function queryServer (info, callback){
         dataType: dataType,
         data: data,
         timeout: 15000,
-        success: function(result) {  	
+        success: function(result) {  
 			callback(null, result);
 		 },   
          error: function(jqXHR, textStatus, error) {
-         		
+         		var details = (jqXHR.responseText)? jQuery.parseJSON(JSON.stringify(jqXHR.responseText)) : "No connecion with the server"	
          		error={
          			jqXHR : jqXHR, 
          			textStatus : textStatus, 
-         			error : error};
+         			details : details	
+         		};
 				callback(error, null);
          }
     });
@@ -117,7 +119,7 @@ function showMessage(message){
 	if(!message.error){
 		var logoutb = ($("#SignIn").val() == "true")?true:false;
 		$("#debug").append('<br><legend>' + message.name + ' </legend><br>' +
-			((logoutb)?'loged: ': 'log out: ') + new Date(message.date) + ((logoutb)?' and lobored at: ' +  message.type:''));
+			((logoutb)?'Loged: ': 'Log out: ') + new Date(message.date) + ((logoutb)?' and lobored at: ' +  message.type:''));
 	}else{
 		showError(message);		
 	}
@@ -127,7 +129,7 @@ function showMessage(message){
 
 function showError(error){
 	$("#debug").empty();
-	$("#debug").append('<br><legend>ERROR </legend><br>error:' + error.error);
+	$("#debug").append('<br><legend>ERROR </legend><br>' + error);
 }
 
 function clear(){
@@ -138,3 +140,4 @@ function clear(){
 	$("#SignIn").append("Sign in");
 	$("#SignIn").val(true);
 }
+

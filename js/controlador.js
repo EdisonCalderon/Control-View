@@ -20,7 +20,7 @@ app.controller("signUpController",function signUpController($scope){
             queryServer(info, function(error, user){                
                 if(error){     
                     $scope.message_title="Error";               
-                    $scope.message_content= error.error;
+                    $scope.message_content= error.details;
                 }           
                 else{    
                     $scope.message_title="Message";                
@@ -47,11 +47,6 @@ app.controller("passwordChangeController",function changePasswordController($sco
         newPass: ""
     };
     $scope.changePass= function(){
-        console.log($scope.user.name);
-        console.log($scope.user.pass1);
-        console.log($scope.user.pass2);
-        console.log($scope.user.newPass);
-
         if($scope.user.name != ""  && $scope.user.pass1!="" && $scope.user.pass2!="" && $scope.user.newPass!=""){
             if($scope.user.pass1 === $scope.user.pass2){
                 var info = {
@@ -64,9 +59,9 @@ app.controller("passwordChangeController",function changePasswordController($sco
                     }           
                 };            
                 queryServer(info, function(error, usuario){                                                  
-                    if(error){         
+                    if(error){
                         $scope.message_title="Error";
-                        $scope.message_content= error.error;                        
+                        $scope.message_content= error.details;                        
                     }           
                     else{   
                         $scope.message_title= "Message";                 
@@ -97,15 +92,17 @@ function queryServer (info, callback){
         dataType: dataType,
         data: data,
         timeout: 15000,
-        success: function(result) { 
+        success: function(result) {  
             callback(null, result);
          },   
-         error: function(jqXHR, textStatus, error) {               
+         error: function(jqXHR, textStatus, error) {
+                var details = (jqXHR.responseText)? jQuery.parseJSON(JSON.stringify(jqXHR.responseText)) : "No connecion with the server"   
                 error={
                     jqXHR : jqXHR, 
                     textStatus : textStatus, 
-                    error : error};
+                    details : details   
+                };
                 callback(error, null);
          }
     });
-}
+};
