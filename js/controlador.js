@@ -23,8 +23,8 @@ app.controller("signUpController",function signUpController($scope){
                     $scope.message_content= error.details;
                 }           
                 else{    
-                    $scope.message_title="Message";                
-                    $scope.message_content="User created successfully. Welcome!";
+                    $scope.message_title= "Message";                
+                    $scope.message_content= "User created successfully. Welcome! Your ID is: "+ user._id;
                     //Se envia la informacion del empleado a otra vista 
                 }
                 $scope.$apply();
